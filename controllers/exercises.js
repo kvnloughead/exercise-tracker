@@ -9,9 +9,9 @@ const parseDate = (date) => {
 }
 
 const addExercise = async (req, res) => {
-  const { userId } = req.params;
+  const { id } = req.params;
   const { description, duration, date } = req.body;
-  Exercise.create({ userId, description, date, duration })
+  Exercise.create({ userId: id, description, date, duration })
     .then((exercise) => {
         Exercise.populate(exercise, { path: 'userId' })
           .then((exercise) => {
@@ -31,4 +31,8 @@ const addExercise = async (req, res) => {
     });
 }
 
-module.exports = { addExercise };
+const getLog = (req, res) => {
+
+} 
+
+module.exports = { addExercise, getLog };

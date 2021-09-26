@@ -5,6 +5,11 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  log: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'exercise',
+    default: [],
+  }]
 });
 
 module.exports = mongoose.model('User', userSchema);
