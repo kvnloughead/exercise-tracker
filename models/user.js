@@ -5,9 +5,9 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  log: [{
+  logs: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'exercise',
+    ref: 'Exercise',
     default: [],
   }]
 });
