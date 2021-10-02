@@ -12,7 +12,7 @@ const addExercise = (req, res) => {
         .then((user) => {
           user.logs.push(exercise._id);
           user.save();
-          res.send({ _id: user._id, username: user.username, description, date: date ? parseDate(date) : parseDate(Date.now()), duration })
+          res.send({ _id: user._id, username: user.username, description, date: date ? parseDate(date) : parseDate(Date.now()), duration: parseInt(duration) })
         })
         .catch((err) => console.log(err));
       return exercise;
