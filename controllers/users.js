@@ -2,6 +2,16 @@ const User = require('../models/user');
 
 const { parseDate } = require('../utils/helpers');
 
+const getUsers = async (req, res) => {
+  User.find({})
+    .then((users) => {
+      res.send(users.map(({ username, _id }) => {
+        return { username, _id }
+      }));
+    })
+    .catch((err) => res.send(err));
+}
+
 const createUser = (req, res) => {
   User.create({ username: req.body.username })
     .then((user) => {
@@ -37,4 +47,4 @@ const getLogs = (req, res) => {
     .catch((err) => console.log(err));
 }
 
-module.exports = { createUser, getLogs }
+module.exports = { getUsers, createUser, getLogs }
