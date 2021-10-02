@@ -34,14 +34,14 @@ const getLogs = (req, res) => {
       options: { limit: limit < Infinity && limit },
     })
     .then(([ user ]) => {
-      // filter log according to from and to - couldn't get it to work within .populate
       const log = user.logs.filter((log, i) => {
         return new Date(from) <= log.date && log.date <= new Date(to);
-      });
-      // build result to send to client
+      }).map((item) => { 
+        return { ...item, date: parseDate(item.date) };
+      })
       const result = { _id: user._id, username: user.username, log, count: log.length };
-      result.from = new Date(from).getFullYear() > 1969 && parseDate(from);
-      result.to = new Date(to).getFullYear() !== 9999 && parseDate(to);
+      result.from = new Date(from).getFullYear() > 1969 ? parseDate(from) : undefined;
+      result.to = new Date(to).getFullYear() !== 9999 ? parseDate(to) : undefined;
       res.send(result);
     })    
     .catch((err) => console.log(err));
