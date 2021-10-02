@@ -7,14 +7,16 @@ require('dotenv').config()
 app.use(express.json());
 app.use(express.urlencoded());
 
-app.use(cors())
-app.use(express.static('public'))
+app.use(cors());
+app.use(express.static('public'));
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/index.html')
 });
 
-mongoose.connect('mongodb://localhost:27017/exercisetracker',  {
+const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/exercisetracker';
+
+mongoose.connect(mongoURI,  {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
